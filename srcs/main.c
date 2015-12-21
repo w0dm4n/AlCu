@@ -12,23 +12,52 @@
 
 #include "all.h"
 
+char	*add_in_tmp(char *tmp, char *toadd, int i, int res)
+{
+	int len;
+	char *tmp_2;
+	int i_2;
+
+	i_2 = 0;	
+	len = ft_strlen(tmp);
+	tmp_2 = ft_strnew(len);
+	while (tmp[i])
+	{
+		if (ft_isdigit(tmp[i]) || tmp[i] == '\n')
+		{
+			tmp_2[i_2] = tmp[i];
+			i_2++;
+		}
+		i++;
+	}
+	tmp_2[i_2] = '\0';
+	tmp = ft_strnew((len + ft_strlen(toadd)));
+	tmp = ft_strcat(tmp, tmp_2);
+	tmp = ft_strncat(tmp, toadd, res);
+	free(tmp_2);
+	return (tmp);
+}
+
 void	read_entry(void)
 {
 	int fd;
 	char *buffer;
 	int res;
+	char *map;
 
-	buffer = ft_strnew((BUFF_SIZE * 20));
+	buffer = ft_strnew((BUFF_SIZE_FILE * 10));
 	if (!buffer)
-	{
 		ft_putstr("ERROR\n");
-		exit(-1);
-	}
-	fd = STDIN_FILENO;
-	while ((res = read(fd, buffer, BUFF_SIZE)))
+	else
 	{
-		if (buffer[0] == '\n')
-			break ;
+		fd = STDIN_FILENO;
+		while ((res = read(fd, buffer, BUFF_SIZE_ENTRY)))
+		{
+			if (buffer[0] == '\n')
+				break ;
+			map = add_in_tmp(map, buffer, 0, res);
+		}
+		check_map(map);
 	}
 }
 
@@ -38,21 +67,21 @@ void	read_file(char *file_name)
 	char *buffer;
 	int res;
 
-	buffer = ft_strnew((BUFF_SIZE * 20));
+	buffer = ft_strnew((BUFF_SIZE_FILE * 10));
 	if (!buffer)
-	{
 		ft_putstr("ERROR\n");
-		exit(-1);
-	}
-	fd = open(file_name, O_RDONLY);
-	if (fd != -1)
-	{
-		while ((res = read(fd, buffer, BUFF_SIZE)))
-			;
-		ft_putstr(buffer);
-	}
 	else
-		ft_putstr("ERROR\n");
+	{
+		fd = open(file_name, O_RDONLY);
+		if (fd != -1)
+		{
+			while ((res = read(fd, buffer, BUFF_SIZE_FILE)))
+				;
+			check_map(buffer);
+		}
+		else
+			ft_putstr("ERROR\n");
+	}
 }
 
 int		main(int argc, char **argv)
