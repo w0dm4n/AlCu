@@ -12,9 +12,9 @@
 
 NAME = alum1
 
-SRCS = srcs/main.c
+SRCS = srcs/main.c srcs/check_map.c srcs/start_match.c srcs/ia_turn.c srcs/print_winner.c
 
-O_FILE = main.o
+O_FILE = main.o check_map.o start_match.o ia_turn.o print_winner.o
 
 FLAGS = -Wall -Wextra -Werror
 
