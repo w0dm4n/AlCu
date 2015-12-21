@@ -6,7 +6,7 @@
 /*   By: frmarinh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/19 20:10:48 by frmarinh          #+#    #+#             */
-/*   Updated: 2015/12/19 21:17:56 by frmarinh         ###   ########.fr       */
+/*   Updated: 2015/12/21 03:32:12 by frmarinh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 char	*add_in_tmp(char *tmp, char *toadd, int i, int res)
 {
-	int len;
-	char *tmp_2;
-	int i_2;
+	int		len;
+	char	*tmp_2;
+	int		i_2;
 
-	i_2 = 0;	
+	i_2 = 0;
 	len = ft_strlen(tmp);
 	tmp_2 = ft_strnew(len);
 	while (tmp[i])
@@ -40,12 +40,12 @@ char	*add_in_tmp(char *tmp, char *toadd, int i, int res)
 
 void	read_entry(void)
 {
-	int fd;
-	char *buffer;
-	int res;
-	char *map;
+	int		fd;
+	char	*buffer;
+	int		res;
+	char	*map;
 
-	buffer = ft_strnew((BUFF_SIZE_FILE * 10));
+	buffer = ft_strnew(BUFF_SIZE_FILE);
 	if (!buffer)
 		ft_putstr("ERROR\n");
 	else
@@ -63,11 +63,11 @@ void	read_entry(void)
 
 void	read_file(char *file_name)
 {
-	int fd;
-	char *buffer;
-	int res;
+	int		fd;
+	char	*buffer;
+	int		res;
 
-	buffer = ft_strnew((BUFF_SIZE_FILE * 10));
+	buffer = ft_strnew(BUFF_SIZE_FILE);
 	if (!buffer)
 		ft_putstr("ERROR\n");
 	else

@@ -6,7 +6,7 @@
 /*   By: frmarinh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 23:09:36 by frmarinh          #+#    #+#             */
-/*   Updated: 2015/12/21 01:40:33 by frmarinh         ###   ########.fr       */
+/*   Updated: 2015/12/21 03:38:22 by frmarinh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,36 +34,30 @@ void	print_all_match(int *all_match)
 	}
 }
 
-int		read_player_entry(int match)
+int		read_player_entry(int match, int nbr)
 {
 	char	*buffer;
-	int fd;
-	int nbr;
+	int		fd;
 
 	fd = STDIN_FILENO;
 	buffer = ft_strnew(BUFF_SIZE_ENTRY);
-	if (!buffer)
-		ft_putstr("Can't alloc memory... something bad happened ;(\n");
-	else
+	while (1)
 	{
-		while (1)
+		read(fd, buffer, BUFF_SIZE_ENTRY);
+		nbr = ft_atoi(buffer);
+		if (nbr > 0 && nbr <= 3)
 		{
-			read(fd, buffer, BUFF_SIZE_ENTRY);
-			nbr = ft_atoi(buffer);
-			if (nbr > 0 && nbr <= 3)
-			{
-				if (nbr > match)
-					ft_putstr(WORD_PERROR_2);
-				else
-				{
-					match = match - nbr;
-					break ;
-				}
-			}
+			if (nbr > match)
+				ft_putstr(WORD_PERROR_2);
 			else
-				ft_putstr(WORD_PERROR_1);
-			ft_bzero(buffer, 16);
+			{
+				match = match - nbr;
+				break ;
+			}
 		}
+		else
+			ft_putstr(WORD_PERROR_1);
+		ft_bzero(buffer, 16);
 	}
 	free(buffer);
 	return (match);
@@ -95,14 +89,13 @@ int		play_match(int *all_match, int pos)
 		if (!turn_to)
 		{
 			ft_putstr(WORD_PTURN);
-			to_subtract = read_player_entry(all_match[pos]);
+			to_subtract = read_player_entry(all_match[pos], 0);
 			turn_to = 1;
 		}
-		else if (turn_to == 1)
+		else if (turn_to == 1 && !(turn_to = 0))
 		{
 			to_subtract = ia_turn(all_match[pos]);
 			ft_putstr(IA_TURN_START);
-			turn_to = 0;
 		}
 		all_match[pos] = to_subtract;
 		print_all_match(all_match);

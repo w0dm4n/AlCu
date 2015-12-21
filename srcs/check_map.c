@@ -6,7 +6,7 @@
 /*   By: frmarinh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 22:13:55 by frmarinh          #+#    #+#             */
-/*   Updated: 2015/12/21 00:12:57 by frmarinh         ###   ########.fr       */
+/*   Updated: 2015/12/21 03:31:17 by frmarinh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int		check_char_nbrmatch(char *buffer, int i, int i_2)
 {
-	char *nbr;
-	int nbr_match;
+	char	*nbr;
+	int		nbr_match;
 
 	nbr_match = 0;
 	nbr = ft_strnew(16);
@@ -32,17 +32,14 @@ int		check_char_nbrmatch(char *buffer, int i, int i_2)
 		if (!(ft_isdigit(buffer[i])) && buffer[i] != '\n')
 			return (0);
 		if (buffer[i] != '\n')
-		{
-			nbr[i_2] = buffer[i];
-			i_2++;
-		}
+			nbr[i_2++] = buffer[i];
 		i++;
 	}
 	free(nbr);
 	return (1);
 }
 
-int 	get_match_nbr(char *buffer)
+int		get_match_nbr(char *buffer)
 {
 	int lines;
 	int i;
@@ -61,8 +58,8 @@ int 	get_match_nbr(char *buffer)
 int		*get_nbr(char *buffer, int i, int i_2, int lines)
 {
 	int		*all_match;
-	char *nbr;
-	int nbr_match;
+	char	*nbr;
+	int		nbr_match;
 
 	nbr = ft_strnew(16);
 	nbr_match = 0;
@@ -78,10 +75,7 @@ int		*get_nbr(char *buffer, int i, int i_2, int lines)
 			lines++;
 		}
 		if (buffer[i] != '\n')
-		{
-			nbr[i_2] = buffer[i];
-			i_2++;
-		}
+			nbr[i_2++] = buffer[i];
 		i++;
 	}
 	all_match[lines] = 0;
